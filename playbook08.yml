@@ -1,0 +1,16 @@
+---                                                                                         
+- name: Learning about Template Module                                                      
+  hosts: planetexpress                                                                      
+  gather_facts: yes                                                                         
+                                                                                            
+  vars:                                                                                     
+     enginetype: darkmatter                                                                 
+     people: "Fry, Lela, Zoidberg"                                                         
+     stuffincargo: Slurm Cola                                                               
+     primarymission: Make a delivery of slurm cola to the outer regions of Perci Omicron XII
+                                                                                            
+  tasks:                                                                                    
+          - name: build a template                                                          
+            template:                                                                       
+                    src: template01.j2                                                      
+                    dest: ~/ship.cfg

@@ -1,0 +1,38 @@
+---
+- name: Bootstrapping and newuser
+  hosts: all
+  gather_facts: yes
+
+  vars:
+          uid: 1999
+          usertocreate: pumpkinking
+          grouptocreate: halloween
+
+  vars_files: 
+          #- ~/pb03.yml   # Zach says home directory is a secure space
+          - vars/pb03.yml
+
+  tasks:
+          #        - name: Ensure python is installed on target hosts
+          #  raw: "apt install -y python3-pip"
+          #  become: yes
+
+
+          - name: Create a new group
+            group:
+                    name: "{{ grouptocreate }}"
+                    state: present
+
+            become: yes
+
+          - name: Add "{{ usertocreate }}"  with uid "{{ uid }}" and group "{{ grouptocreate }}"
+            user: 
+                    name: "{{ usertocreate }}"
+                    comment: "Trying to create a user"
+                    state: present
+                    shell: /bin/bash
+                    system: no
+                    createhome: yes
+                    group: "{{ grouptocreate }}"
+                    uid: "{{ uid }}"
+            become: yes

@@ -1,0 +1,25 @@
+---
+- name: Set the EOS banner
+  hosts: eosswitches
+  connection: network_cli
+  gather_facts: no
+
+  vars:
+          ansible_become_method: enable
+          ansible_user: admin
+          ansible_ssh_pass: alta3
+
+  tasks:
+          - name: se eosbanner to set a banner of the day
+            eos_banner:
+                    banner: login
+                    text: Congrats on logging into the switch!
+                    state: present
+            become: yes
+
+
+## start @ 3:17
+### Objective 1 -- alter the playbook so it REMOVES the banner
+### Objective 2 -- I don't like creds being hardcoded in the playbook
+# Move ansible_become_method, ansible_user, and ansible_ssh_pass to new locations
+#

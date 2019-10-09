@@ -1,0 +1,69 @@
+---
+- name: reviewing looping
+  hosts: localhost
+  gather_facts: yes
+
+  vars_prompt:
+          - name: csi
+            prompt: "Provide a list of comma separated interfaces: "
+            private: no
+
+  
+  vars_files:
+          - files/moviesdecades.yml
+
+  vars:
+          ethList:
+                  - eth0
+                  - eth1
+                  - eth2
+                  - eth3
+ 
+# pre_tasks:
+
+# roles:
+
+  tasks:
+          - name: demo a tiny loop
+            debug:
+                    msg: "Prints stuff out {{ item }}"
+            loop: "{{ ethList }}"
+
+          - name: demo a local var loop
+            debug:
+                    msg: "All modules support a local var list: {{ item }}"
+            loop: "{{ ethList2 }}"
+            vars:
+                    ethList2:
+                            - "192.168.70.1"
+                            - "10.0.0.1"
+
+          - name: intro to loop control
+            debug:
+                    var: item
+            loop:
+                    - server1
+                    - server2
+                    - server3
+            loop_control:
+                    pause: 3
+
+          - name: loop across complex data structure
+            debug:
+                    msg: "{{ item.name }} belongs in the {{ item.groups }} asile"
+            loop:
+                    - { name: 'orange', groups: fruit }
+                    - { name: "lemon", groups: fruit }
+                    - { name: cookie, groups: fruit }
+                    - { name: carrot, groups: vegetables }
+
+          - name: loop across data in /files/moviesdecades.yml
+            debug:
+                    msg: "{{ item.movies }} was released in the {{ item.decades }}"
+            
+            loop: "{{ moviesdecades }}"
+
+          - name: try looping across csi
+            debug:
+                    var: item
+            loop: "{{ csi.split(', ') }}"
