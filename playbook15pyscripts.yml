@@ -1,0 +1,15 @@
+---
+- name: Running ansible to launch my scripts
+  hosts: planetexpress:!farnsworth
+  gather_facts: yes
+
+  tasks:
+          - name: Call the script via the script module
+            script: scripts/helloscript.py
+            args:
+                    executable: python3
+            register: results
+
+          - name: show the results of our script
+            debug:
+                    var: results
