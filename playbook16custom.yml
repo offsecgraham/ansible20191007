@@ -1,0 +1,15 @@
+---
+- name: Trying to use our custom module
+  hosts: localhost
+  gather_facts: yes
+
+  tasks:
+          - name: Trying to use our roll you own module approach
+            testmod:
+                    name: Glenn
+                    argument: True
+            register: result
+
+          - name: Show what our module did
+            debug:
+                    var: result

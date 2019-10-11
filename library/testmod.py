@@ -47,7 +47,7 @@ message:
     type: str
 '''
 
-from anisble.module_utils.basic import AnsibleModule
+from ansible.module_utils.basic import AnsibleModule
 
 def run_module():
     """ module logic"""
@@ -61,19 +61,19 @@ def run_module():
     ## we primarly care about the change and state
     ## change is if hte module effectively modified the target
     ## result contains all of the KEYS you want to return after you module completes
-    results = dict(
-            changed=False,
-            original_message='',
-            message='')
-
-    module = AnsibleModule(
-            argument_spec=module_args,
-            supports_check_mode=True)
-
-    if module.check_mode:
-        return result
-
-    result['original_message'] = module.params['name']
+    result = dict(                                                                                                                                             
+            changed=False,                                                                                                                                     
+            orginal_message='',                                                                                                                                
+            message='')                                                                                                                                        
+                                                                                                                                                               
+    module = AnsibleModule(                                                                                                                                    
+            argument_spec=module_args,                                                                                                                         
+            supports_check_mode=True)                                                                                                                          
+                                                                                                                                                               
+    if module.check_mode:                                                                                                                                      
+        return result                                                                                                                                          
+                                                                                                                                                               
+    result['original_message'] = module.params['name']                       
 
     if module.params['argument'] == False:
         result['message'] = module.params['name']

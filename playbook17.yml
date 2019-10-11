@@ -1,0 +1,9 @@
+---
+- name: Playbook to run against dynmaic inventory
+  hosts: all
+
+  tasks:
+          - name: create a directory
+            file:
+                    state: directory
+                    path: ~/dyninvproof/

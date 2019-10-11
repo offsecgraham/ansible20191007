@@ -1,0 +1,34 @@
+#!/usr/bin/python3
+
+import json
+
+iplist = []
+iplistuname = []
+
+with open("/listoips.txt", "r") as listips:
+    for line in listips:
+        if "backbone_bbr" in line:
+            for line in listips:
+                 if line[0] == '#' or line[0] == "\n":
+                     break
+
+                 # Remove end of line '\'" from line
+                 line = line.strip('\n')
+                 
+                 # Split Line into separate items for list
+                 line = line.split()
+
+                 # First Item gets added to iplist 
+                 iplist.append(line[0])
+                 
+                 # Second Item gets added to iplistuname
+                 iplistuname.append(line[1])
+                 
+
+
+x = iplist
+print(json.dumps(x))
+
+
+#y = iplistuname
+#print(json.dumps(y))
